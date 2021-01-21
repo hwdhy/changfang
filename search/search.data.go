@@ -35,11 +35,7 @@ func SearchDataStart(db *gorm.DB) {
 	db.Select("detail_url", "author").Find(&SearchDetailUrls).Count(&countAll)
 
 	//遍历所有详情URL
-	for dhy, SearchDetailUrl := range SearchDetailUrls {
-
-		if dhy == 5 {
-			break
-		}
+	for _, SearchDetailUrl := range SearchDetailUrls {
 
 		var UrlRepeat ServiceModels.UrlContent
 		//判断数据在表中是否存在，如果不存在添加进数据库中
@@ -118,9 +114,10 @@ func SearchDataStart(db *gorm.DB) {
 
 				if k == len(hwImages)-1 {
 					Images = Images + hwImage[1]
+					break
 				}
 
-				Images = Images + hwImage[1] + ","
+				Images = Images + hwImage[1] + "#"
 
 			}
 			hwAreaInt, _ := strconv.Atoi(hwArea[1])
